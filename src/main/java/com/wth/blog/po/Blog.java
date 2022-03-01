@@ -35,7 +35,16 @@ public class Blog {
     private List<Comment> comments =new ArrayList<>();
     public Blog() {
     }
+    @Transient
+    private String tagIds;
 
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
 
     public List<Tag> getTags() {
         return tags;

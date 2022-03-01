@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
     <link rel="stylesheet" href="../static/css/selfdefined.css" th:href="@{/css/selfdefined.css}">
     <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
 </head>
 <body>
     <!--导航-->
@@ -21,7 +22,7 @@
                 <div class="right m-item  m-mobile-hide menu">
                     <div class="ui dropdown item">
                         <div class="text">
-                            <img src="https://picsum.photos/id/22/100/100" alt="" class="ui avataor image" th:src="${session.user.avatar}">
+                            <img src="https://picsum.photos/id/22/100/100" alt="" class="ui avataor image" th:src="${session.user.avator}">
                             <span>王天昊</span>
                         </div>
                         <i class="dropdown icon"></i>
@@ -78,6 +79,7 @@
         <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
         <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.3/jquery.scrollTo.min.js"></script>
+        <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
     </th:block>
 
 </body>
