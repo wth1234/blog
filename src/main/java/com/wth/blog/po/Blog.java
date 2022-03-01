@@ -12,6 +12,8 @@ public class Blog {
     @GeneratedValue
     private Long id;
     private String title;
+    @Lob
+    @Basic(fetch=FetchType.LAZY)
     private String content;
     private String firstPicture;
     private String flag;
