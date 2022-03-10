@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,29 +38,30 @@
         <div class="ui top attached segment">
             <div class="ui horizontal link list">
                 <div class="item">
-                    <img src="https://picsum.photos/id/22/100/100" alt="" class="ui avatar image">
-                    <div class="content"><a href="#" class="header">喂喂喂1234</a></div>
+                    <img src="https://picsum.photos/id/22/100/100" th:src="@{${blog.user.avator}}" alt="" class="ui avatar image">
+                    <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">喂喂喂1234</a></div>
                 </div>
                 <div class="item">
-                    <i class="calendar icon"></i>2021-11-08
+                    <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2021-11-08</span>
                 </div>
                 <div class="item">
-                    <i class="eye icon"></i>1111
+                    <i class="eye icon"></i><span th:text="${blog.views}">1111</span>
                 </div>
             </div>
         </div>
         <div class="ui attached segment">
             <!--图片区域-->
-            <img src="../static/images/背景图.jfif" alt="" class="ui fluid rounded image">
+            <img src="../static/images/背景图.jfif" th:src="@{${blog.firstPicture}}" alt="" class="ui fluid rounded image">
         </div>
         <div class="ui attached padded segment">
         <!--内容-->
             <div class="ui right aligned basic segment">
-                <div class="ui orange basic label">原创</div>
+                <div class="ui orange basic label" th:text="${blog.flag}">原创</div>
             </div>
-            <h2 class="ui center aligned header">标题</h2>
+            <h2 class="ui center aligned header" th:text="${blog.title}">标题</h2>
             <br>
-            <div id="content" class="js-toc-content m-padded-lr-responsive m-padded-tb-large">
+            <!--主要内容-->
+            <div id="content" class="js-toc-content m-padded-lr-responsive m-padded-tb-large" th:text="${blog.content}">
                 <h2 id="section0">小标题</h2>
                 <p>文字内容。。。。。。。。</p>
                 <h2 id="section1">小标题</h2>
@@ -72,7 +73,7 @@
             </div>
             <!--标签-->
             <div class="m-padded-lr">
-                <div class="ui basic teal left pointing label">标签一</div>
+                <div class="ui basic teal left pointing label" th:each="tag : ${blog.tags}" th:text="${tag.name}">标签一</div>
             </div>
             <!--赞赏-->
             <div class="ui center aligned basic segment">
@@ -82,11 +83,11 @@
                 <div class="ui orange basic label">
                     <div class="ui images" style="font-size: inherit !important;">
                         <div class="image">
-                            <img src="../static/images/1.PNG" alt="" class="ui rounded bordered image" style="width: 120px">
+                            <img src="../static/images/1.PNG" th:src="@{/images/1.PNG}" alt="" class="ui rounded bordered image" style="width: 120px">
                             <div>支付宝</div>
                         </div>
                         <div class="image">
-                            <img src="../static/images/1.PNG" alt="" class="ui rounded bordered image" style="width: 120px">
+                            <img src="../static/images/1.PNG" th:src="@{/images/1.PNG}" alt="" class="ui rounded bordered image" style="width: 120px">
                             <div>微信</div>
                         </div>
                     </div>
@@ -102,14 +103,14 @@
             <div class="ui middle aligned grid">
                 <div class="eleven wide column">
                     <ui class="list">
-                        <li>内容1</li>
-                        <li>内容1</li>
+                        <li>作者: <span th:text="${blog.user.nickname}">XXX</span><a href="#" th:href="@{/about}" target="_blank0">（联系作者）</a></li>
+                        <li>发表时间: <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}"></span></li>
                         <li>内容1</li>
                         <li>内容1</li>
                     </ui>
                 </div>
                 <div class="five wide column">
-                    <img src="../static/images/1.PNG" alt="" class="ui right floated rounded bordered image" style="width: 110px">
+                    <img src="../static/images/1.PNG" th:src="@{/images/1.PNG}" alt="" class="ui right floated rounded bordered image" style="width: 110px">
                 </div>
             </div>
         </div>

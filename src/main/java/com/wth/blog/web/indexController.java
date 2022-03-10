@@ -38,8 +38,10 @@ public class indexController {
     }
 
     @GetMapping("/blog/{id}")
-    public  String blog(){
-        return "blog ";
+    public  String blog(@PathVariable Long id ,Model model){
+
+        model.addAttribute("blog",blogService.getBlog(id));
+        return "blog";
     }
 
 }
