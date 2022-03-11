@@ -40,7 +40,7 @@ public class indexController {
     @GetMapping("/blog/{id}")
     public  String blog(@PathVariable Long id ,Model model){
 
-        model.addAttribute("blog",blogService.getBlog(id));
+        model.addAttribute("blog",blogService.getAndCovert(id));
         return "blog";
     }
 

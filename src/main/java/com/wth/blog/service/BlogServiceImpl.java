@@ -4,6 +4,7 @@ import com.wth.blog.NotFoundException;
 import com.wth.blog.dao.BlogRepository;
 import com.wth.blog.po.Blog;
 import com.wth.blog.po.Type;
+import com.wth.blog.util.MarkdownUtils;
 import com.wth.blog.util.MyBeanUtils;
 import com.wth.blog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
@@ -58,6 +59,20 @@ public class BlogServiceImpl implements BlogService{
     @Override
     public Page<Blog> listBlog(Pageable pageable) {
         return blogRepository.findAll(pageable);
+    }
+
+    @Override
+    public Blog getAndCovert(Long id) {
+        Blog blog=blogRepository.getOne(id);
+        if(blog==null){
+            throw  new NotFoundException("该博客不存在");
+        }
+        //直接在原来的blog上操作可能会修改数据库，导致内容出错
+        Blog b=new Blog();
+        BeanUtils.copyProperties(blog,b);
+        String content=blog.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return b;
     }
 
     @Override
