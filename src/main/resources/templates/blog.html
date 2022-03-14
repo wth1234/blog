@@ -114,79 +114,84 @@
                 </div>
             </div>
         </div>
-        <div id="comment-container" class="ui bottom attached segment">
+        <div class="ui bottom attached segment">
             <!--留言区域列表-->
-            <div class="ui teal segment">
-                <div class="ui comments">
-                    <h3 class="ui dividing header">Comments</h3>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="https://picsum.photos/id/22/100/100">
-                        </a>
-                        <div class="content">
-                            <a class="author">Matt</a>
-                            <div class="metadata">
-                                <span class="date">今天下午 5:42</span>
-                            </div>
-                            <div class="text">太赞了！ </div>
-                            <div class="actions">
-                                <a class="reply">回复</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="https://picsum.photos/id/22/100/100">
-                        </a>
-                        <div class="content">
-                            <a class="author">Elliot Fu</a>
-                            <div class="metadata">
-                                <span class="date">昨天上午12:30</span>
-                            </div>
-                            <div class="text">
-                                <p>這對我的研究是非常有用.謝謝!</p>
-                            </div>
-                            <div class="actions">
-                                <a class="reply">回复</a>
+            <div id="comment-container" class="ui teal segment">
+                <div th:fragment="commentList">
+                    <div class="ui threaded comments" style="max-width: 100%;">
+                        <h3 class="ui dividing header">评论</h3>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="https://picsum.photos/id/22/100/100">
+                            </a>
+                            <div class="content">
+                                <a class="author">Matt</a>
+                                <div class="metadata">
+                                    <span class="date">今天下午 5:42</span>
+                                </div>
+                                <div class="text">太赞了！ </div>
+                                <div class="actions">
+                                    <a class="reply" data-commentid="1" data-commentnick="Matt" onclick="reply(this)">回复</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="comments">
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="https://picsum.photos/id/22/100/100">
-                                </a>
-                                <div class="content">
-                                    <a class="author">Jenny Hess</a>
-                                    <div class="metadata">
-                                        <span class="date">刚刚</span>
-                                    </div>
-                                    <div class="text">艾略特你永远是多么正确 :) </div>
-                                    <div class="actions">
-                                        <a class="reply">回复</a>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="https://picsum.photos/id/22/100/100">
+                            </a>
+                            <div class="content">
+                                <a class="author">Elliot Fu</a>
+                                <div class="metadata">
+                                    <span class="date">昨天上午12:30</span>
+                                </div>
+                                <div class="text">
+                                    <p>這對我的研究是非常有用.謝謝!</p>
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">回复</a>
+                                </div>
+                            </div>
+                            <div class="comments">
+                                <div class="comment">
+                                    <a class="avatar">
+                                        <img src="https://picsum.photos/id/22/100/100">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author">Jenny Hess</a>
+                                        <div class="metadata">
+                                            <span class="date">刚刚</span>
+                                        </div>
+                                        <div class="text">艾略特你永远是多么正确 :) </div>
+                                        <div class="actions">
+                                            <a class="reply">回复</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="https://picsum.photos/id/22/100/100">
-                        </a>
-                        <div class="content">
-                            <a class="author">Joe Henderson</a>
-                            <div class="metadata">
-                                <span class="date">5 天以前</span>
-                            </div>
-                            <div class="text">老兄，这太棒了。非常感谢。 </div>
-                            <div class="actions">
-                                <a class="reply">回复</a>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="https://picsum.photos/id/22/100/100">
+                            </a>
+                            <div class="content">
+                                <a class="author">Joe Henderson</a>
+                                <div class="metadata">
+                                    <span class="date">5 天以前</span>
+                                </div>
+                                <div class="text">老兄，这太棒了。非常感谢。 </div>
+                                <div class="actions">
+                                    <a class="reply">回复</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
+
             </div>
-            <div class="ui form">
+            <div id="comment-form" class="ui form">
+                <input type="hidden" name="blog.id" th:value="${blog.id}">
+                <input type="hidden" name="parentCommend.id" value="-1">
                <div class="field">
                    <textarea name="content" placeholder="请输入评论信息..." id="" cols="30" rows="10"></textarea>
                </div>
@@ -204,7 +209,7 @@
                         </div>
                     </div>
                     <div class="field m-margin-bottom-small m-mobile-wide">
-                        <button class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布</button>
+                        <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布</button>
                     </div>
                 </div>
             </div>
@@ -305,7 +310,7 @@
     });
     var serurl ="localhost:8080";
     var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
-
+    //二维码跳转url
     var qrcode = new QRCode("qrcode", {
         text: serurl+url,
         width: 110,
@@ -317,6 +322,67 @@
     $('#toTop-button').click(function (){
        $(window).scrollTo(0,500);
     });
+    $('.ui.form').form({
+        fields : {
+            title: {
+                identifier: 'content',
+                rules: [{
+                    type:'empty',
+                    prompt: '请输入评论内容'
+                }]
+
+            },
+            content: {
+                identifier: 'nickname',
+                rules: [{
+                    type:'empty',
+                    prompt: '请输入昵称'
+                }]
+
+            },
+            typeId: {
+                identifier: 'email',
+                rules: [{
+                    type:'empty',
+                    prompt: '请输入正确的邮箱地址'
+                }]
+
+            }
+        }
+    });
+    $('#commentpost-btn').click(function (){
+        var boo=$('.ui.form').form('validate form');
+        if(boo){
+            console.log('校验成功');
+        }else{
+            console.log('校验失败');
+        }
+        function postData(){
+            $("#comment-container").load(/*[[@{/comments}]]*/"", {
+                "parentComment.id": $("[name='parentComment.id']").val(),
+                "blog.id": $("[name='blog.id']").val(),
+                "nickname.id": $("[name='nickname.id']").val(),
+                "email.id": $("[name='email.id']").val(),
+                "content.id": $("[name='content.id']").val(),
+            },function (responseTxt,statusTxt,xhr) {
+                $(window).scrollTo($('#comment-container'),500);
+                clearContent();
+            });
+        }
+        function clearContent(){
+            $("[name='content']").val('');
+            $("[name='parentComment.id']").val(-1);
+            $("[name='content']").attr("placeholder","请输入评论信息...");
+        }
+
+    });
+    function reply(obj){
+        var commentId=$(obj).data('commentid');
+        var commentNickname=$(obj).data('commentnickname');
+        $("[name='content']").attr("placeholder","@"+commentNickname).focus();
+        $("[name='parentComment.id']").val(commentId);
+        $(window).scrollTo($('#comment-form'),500);
+    }
 </script>
 </body>
 </html>
